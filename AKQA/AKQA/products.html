@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <script src="Scripts/angular.min.js"></script>
+    <script>
+        var productsApp = angular.module('productsApp', []);
+        
+        productsApp.controller('productStreamCtrl', function($scope, ProductStreamService) {
+            ProductStreamService.getProducts().then(function(data){
+                $scope.products = data;
+            }); 
+        });
+
+        productsApp.factory('ProductStreamService', function($http) { 
+            function getProducts(){
+               return $http.get('products.json').then(function(data) {
+                    return data;
+                }); 
+            } 
+            return {getProducts: getProducts};
+        });
+    </script>
+</head>
+<body>
+
+    <div ng-app="productsApp" ng-controller="productStreamCtrl">
+        <div ng-repeat="product in products.data">
+            <div>
+                {{product.productName}}
+            </div>
+            <div>
+                {{product.price}}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
