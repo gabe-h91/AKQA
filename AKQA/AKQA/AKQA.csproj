@@ -66,9 +66,29 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="packages.config" />
+    <Content Include="css\reset.css" />
+    <Content Include="product-1.jpg" />
+    <Content Include="product-2.jpg" />
+    <Content Include="product-3.jpg" />
+    <Content Include="product-4.jpg" />
+    <Content Include="product-5.jpg" />
+    <Content Include="product-6.jpg" />
+    <Content Include="product-7.jpg" />
+    <Content Include="product-8.jpg" />
+    <Content Include="sass\products.css">
+      <DependentUpon>products.scss</DependentUpon>
+    </Content>
+    <Content Include="sass\products.min.css">
+      <DependentUpon>products.css</DependentUpon>
+    </Content>
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="products.json" />
+    <Content Include="sass\products.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

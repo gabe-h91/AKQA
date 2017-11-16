@@ -1,0 +1,48 @@
+﻿.products
+{
+    font-size: 0;
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+
+    &__item
+    {
+        width: calc(100% / 4);
+        font-size: 15px;
+        display: inline-block;
+        position: relative;
+
+        &-image
+        {
+            max-width: 100%;
+        }
+
+        &--isExclusive
+        {
+            &:after
+            {
+                content: 'Exclusive';
+                padding: 5px 7px;
+                color: white;
+                font-size: 13px;
+                position: absolute;
+                bottom: 50px; left: 0;
+                background-color: forestgreen;
+            }
+        }
+
+        &--isSale
+        {
+            &:after
+            {
+                content: 'Sale';
+                padding: 5px 7px;
+                color: white;
+                font-size: 13px;
+                position: absolute;
+                bottom: 50px; left: 0;
+                background-color: red;
+            }
+        }
+    }
+}
