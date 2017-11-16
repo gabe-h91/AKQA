@@ -9,18 +9,22 @@
 
     <script src="Scripts/angular.min.js"></script>
     <script>
-        var productsApp = angular.module('productsApp', []);
+        var productsApp = angular.module('productsApp', []); // Define the application module
         
-        productsApp.controller('productStreamCtrl', function($scope, ProductStreamService) {
+        productsApp.controller('productStreamCtrl', function($scope, ProductStreamService) { // Create the controller
             ProductStreamService.getProducts().then(function(data){
-                $scope.products = data;
+                $scope.products = data; // Bind data response to the scope
             });
+
+            $scope.topSizes = ["","XS","S","M","L","XL"]; // Create size filter array
+            $scope.filter = {};
+            $scope.resetFilter = function() { $scope.filter = {}; }; // Set filter object back to blank
         });
 
-        productsApp.factory('ProductStreamService', function($http) { 
+        productsApp.factory('ProductStreamService', function($http) { // Create factory to get data
             function getProducts(){
                return $http.get('products.json').then(function(data) {
-                    return data;
+                    return data; // Return data read from json file
                 }); 
             } 
             return {getProducts: getProducts};
@@ -28,34 +32,23 @@
     </script>
 </head>
 <body>
-
+    <!-- Start product view -->
     <div class="products" ng-app="productsApp" ng-controller="productStreamCtrl">
         <div class="products__header">
             <h1>Women's tops</h1>
 
-            <select name="singleSelect" ng-model="singleSelect">
-                <option value="">Filter by size&hellip;</option>
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-            </select>
+            <select id="sizeFilter" name="sizeFilter" ng-model="sizeFilter" ng-options="size for size in topSizes"></select>
         </div>
-        <div ng-repeat="product in products.data | filter:product.size" class="products__item" ng-class="{'products__item--isSale': product.isSale, 'products__item--isExclusive': product.isExclusive}">
-
-                <img class="products__item-image" src="{{product.productImage}}" alt="{{product.productName}}" />
-                <p>
-                    {{product.productName}}
-                </p>
-                <p>
-                    {{product.price}}
-                </p>
-                <p>Sizes: {{product.size}}</p>
-
+        <!-- Start product repeater -->
+        <div ng-repeat="product in products.data | filter:sizeFilter" class="products__item" ng-class="{'products__item--isSale': product.isSale, 'products__item--isExclusive': product.isExclusive}">
+            <img class="products__item-image" src="{{product.productImage}}" alt="{{product.productName}}" />
+            <p>
+                {{product.productName}}
+            </p>
+            <p>
+                {{product.price}}
+            </p>
         </div>
-
     </div>
-
 </body>
 </html>
