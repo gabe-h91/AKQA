@@ -3,13 +3,13 @@
     font-size: 0;
     width: 100%;
     max-width: 1000px;
-    margin: 50px auto 10px;
+    margin: 30px auto 10px;
 
     &__header
     {
         margin-bottom: 20px;
         background-color: #cae8f3;
-        padding: 5px 10px;
+        padding: 7px 10px;
         box-sizing: border-box;
 
         &-title
@@ -21,6 +21,7 @@
         &-select
         {
             float: right;
+            margin-top: -20px;
         }
     }
 
@@ -29,6 +30,7 @@
         width: calc(100% / 4);
         font-size: 15px;
         display: inline-block;
+        vertical-align: middle;
         position: relative;
         padding: 10px;
         box-sizing: border-box;
@@ -38,9 +40,24 @@
             width: calc(100% / 2);
         }
 
+        &-text
+        {
+            font-size: calc(0.60em + 1vmin);
+            display: inline-block;
+            width: 100%;
+            vertical-align: middle;
+
+            &--large
+            {
+                font-size: calc(0.70em + 1vmin);
+                float: right;
+            }
+        }
+
         &-image
         {
             max-width: 100%;
+            margin-bottom: 40px;
         }
 
         &--isExclusive
@@ -48,9 +65,9 @@
             &:after
             {
                 content: 'Exclusive';
-                padding: 5px 7px;
+                padding: 10px 15px;
                 color: white;
-                font-size: 13px;
+                font-size: 11px;
                 position: absolute;
                 bottom: 50px; left: 0;
                 background-color: forestgreen;
@@ -61,12 +78,8 @@
         {
             &:after
             {
+                @extend .products__item--isExclusive:after;
                 content: 'Sale';
-                padding: 5px 7px;
-                color: white;
-                font-size: 13px;
-                position: absolute;
-                bottom: 50px; left: 0;
                 background-color: red;
             }
         }

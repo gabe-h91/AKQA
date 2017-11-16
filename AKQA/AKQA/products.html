@@ -17,7 +17,6 @@
             });
 
             $scope.topSizes = ['XS','S','M','L','XL']; // Create size filter array
-            //$scope.filter = {};
         });
 
         productsApp.factory('ProductStreamService', function($http) { // Create factory to get data
@@ -37,20 +36,17 @@
         <div class="products__header">
             <h1 class="products__header-title">Women's tops</h1>
 
-            <select class="products__header-select" id="sizeFilter" name="sizeFilter" ng-model="sizeFilter" ng-options="size for size in topSizes">
-                <option value="">Filter by size</option>
+            <select class="products__header-select" id="sizeFilter" name="sizeFilter" ng-model="sizeFilter">
+                <option value="{{undefined}}">Filter by size</option>
+                <option ng-repeat="size in topSizes" value="{{size}}">{{size}}</option>
             </select>
         </div>
 
         <!-- Start product repeater -->
         <div ng-repeat="product in products | filter:{size: sizeFilter}" class="products__item" ng-class="{'products__item--isSale': product.isSale, 'products__item--isExclusive': product.isExclusive}">
             <img class="products__item-image" src="{{product.productImage}}" alt="{{product.productName}}" />
-            <p>
-                {{product.productName}}
-            </p>
-            <p>
-                {{product.price}}
-            </p>
+            <p class="products__item-text">{{product.productName}} <span class="products__item-text--large">{{product.price}}</span></p>
+            
         </div>
     </div>
 </body>
