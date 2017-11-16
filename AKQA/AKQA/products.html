@@ -16,31 +16,34 @@
                 $scope.products = data; // Bind data response to the scope
             });
 
-            $scope.topSizes = ["","XS","S","M","L","XL"]; // Create size filter array
-            $scope.filter = {};
-            $scope.resetFilter = function() { $scope.filter = {}; }; // Set filter object back to blank
+            $scope.topSizes = ['XS','S','M','L','XL']; // Create size filter array
+            //$scope.filter = {};
         });
 
         productsApp.factory('ProductStreamService', function($http) { // Create factory to get data
             function getProducts(){
-               return $http.get('products.json').then(function(data) {
-                    return data; // Return data read from json file
+                return $http.get('products.json').then(function(data) {
+                    return data.data; // Return data read from json file
                 }); 
             } 
             return {getProducts: getProducts};
         });
     </script>
 </head>
-<body>
+
+<body style="font-family: arial">
     <!-- Start product view -->
     <div class="products" ng-app="productsApp" ng-controller="productStreamCtrl">
         <div class="products__header">
-            <h1>Women's tops</h1>
+            <h1 class="products__header-title">Women's tops</h1>
 
-            <select id="sizeFilter" name="sizeFilter" ng-model="sizeFilter" ng-options="size for size in topSizes"></select>
+            <select class="products__header-select" id="sizeFilter" name="sizeFilter" ng-model="sizeFilter" ng-options="size for size in topSizes">
+                <option value="">Filter by size</option>
+            </select>
         </div>
+
         <!-- Start product repeater -->
-        <div ng-repeat="product in products.data | filter:sizeFilter" class="products__item" ng-class="{'products__item--isSale': product.isSale, 'products__item--isExclusive': product.isExclusive}">
+        <div ng-repeat="product in products | filter:{size: sizeFilter}" class="products__item" ng-class="{'products__item--isSale': product.isSale, 'products__item--isExclusive': product.isExclusive}">
             <img class="products__item-image" src="{{product.productImage}}" alt="{{product.productName}}" />
             <p>
                 {{product.productName}}
